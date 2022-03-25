@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+
+<img id="img" src="image.png" width="600">
+
+<h3>firefox上要手动添加draggable="false"</h3>
+
+<div id="result"></div>
+
+<script type="module">
+  import ImageClip from './imageClip.js';
+    let clipper = new ImageClip(img);
+    clipper.setClippedArea({x1:0.1, y1:0.2, x2:0.9, y2:0.8}, true);
+
+    clipper.on('confirm', _ => {
+      clipper.getClippedArea();
+      clipper.clip().then(({blob, visualWidth}) => {
+        let img = new Image(visualWidth);
+        img.src = URL.createObjectURL(blob);
+        result.innerHTML = '';
+        result.appendChild(img);
+      })
+    })
+
+</script>
+<script>
+
+</script>
+</body>
+</html>

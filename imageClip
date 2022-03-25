@@ -1,4 +1,15 @@
-import Emitter from './__eventEmitter.js';
+class Emitter extends EventTarget {
+  constructor() {
+    super();
+    this.on = this.addEventListener;
+    this.off = this.removeEventListener;
+  }
+
+  emit(eventName) {
+    const e = new Event(eventName, {bubbles: false, cancelable: true})
+    this.dispatchEvent(e)
+  }
+}
 
 const style = `<style type="text/css" id="clip-css">
       .clip-area-selector {
